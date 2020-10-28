@@ -6,6 +6,15 @@ module.exports = {
   },
   plugins: [
     `gatsby-plugin-theme-ui`,
+    {
+      resolve: "gatsby-source-graphql",
+      options: {
+        typeName: "MDLAPI",
+        fieldName: "mdlapi",
+        url:
+          "https://timckmriv6.execute-api.us-east-1.amazonaws.com/dev/graphql",
+      },
+    },
     `gatsby-plugin-react-helmet`,
     {
       resolve: `gatsby-source-filesystem`,

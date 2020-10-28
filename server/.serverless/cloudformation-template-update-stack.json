@@ -118,6 +118,18 @@
                       "Fn::Sub": "arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/markdownlandingpage-dev*:*:*"
                     }
                   ]
+                },
+                {
+                  "Effect": "Allow",
+                  "Action": [
+                    "dynamodb:Query",
+                    "dynamodb:Scan",
+                    "dynamodb:GetItem",
+                    "dynamodb:PutItem",
+                    "dynamodb:UpdateItem",
+                    "dynamodb:DeleteItem"
+                  ],
+                  "Resource": "arn:aws:dynamodb:us-east-1:*:table/markdownlandingpage-users-dev"
                 }
               ]
             }
@@ -192,7 +204,7 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/markdownlandingpage/dev/1603827266859-2020-10-27T19:34:26.859Z/markdownlandingpage.zip"
+          "S3Key": "serverless/markdownlandingpage/dev/1603915642791-2020-10-28T20:07:22.791Z/markdownlandingpage.zip"
         },
         "FunctionName": "markdownlandingpage-dev-graphql",
         "Handler": "s_graphql.handler",
@@ -204,20 +216,25 @@
           ]
         },
         "Runtime": "nodejs12.x",
-        "Timeout": 6
+        "Timeout": 6,
+        "Environment": {
+          "Variables": {
+            "USER_TABLE": "markdownlandingpage-users-dev"
+          }
+        }
       },
       "DependsOn": [
         "GraphqlLogGroup"
       ]
     },
-    "GraphqlLambdaVersionSWPBeAjzxSHo2Yl0e6luDeqgtLtSz3GSx5TywYoyGY": {
+    "GraphqlLambdaVersionsbryaM5zXM6DhQy3z3qobMMdO1tfe6xXA7D8jmRuh4": {
       "Type": "AWS::Lambda::Version",
       "DeletionPolicy": "Retain",
       "Properties": {
         "FunctionName": {
           "Ref": "GraphqlLambdaFunction"
         },
-        "CodeSha256": "vPXtmFlmmOlWHD4ypea7GlC1nCIbR1IQqSzA0EiO//4="
+        "CodeSha256": "p/bomJyYdLygKVQHjP5XBISgOBeOpPy/pjgIAJhlCdE="
       }
     },
     "ApiGatewayRestApi": {
@@ -378,7 +395,7 @@
         "MethodResponses": []
       }
     },
-    "ApiGatewayDeployment1603827254383": {
+    "ApiGatewayDeployment1603915629883": {
       "Type": "AWS::ApiGateway::Deployment",
       "Properties": {
         "RestApiId": {
@@ -538,7 +555,7 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/markdownlandingpage/dev/1603827266859-2020-10-27T19:34:26.859Z/custom-resources.zip"
+          "S3Key": "serverless/markdownlandingpage/dev/1603915642791-2020-10-28T20:07:22.791Z/custom-resources.zip"
         },
         "FunctionName": "markdownlandingpage-dev-custom-resource-apigw-cw-role",
         "Handler": "apiGatewayCloudWatchRole/handler.handler",
@@ -555,6 +572,28 @@
       "DependsOn": [
         "IamRoleCustomResourcesLambdaExecution"
       ]
+    },
+    "UsersTable": {
+      "Type": "AWS::DynamoDB::Table",
+      "Properties": {
+        "AttributeDefinitions": [
+          {
+            "AttributeName": "userId",
+            "AttributeType": "S"
+          }
+        ],
+        "KeySchema": [
+          {
+            "AttributeName": "userId",
+            "KeyType": "HASH"
+          }
+        ],
+        "ProvisionedThroughput": {
+          "ReadCapacityUnits": 1,
+          "WriteCapacityUnits": 1
+        },
+        "TableName": "markdownlandingpage-users-dev"
+      }
     },
     "CloudWatchLogsSubscriptionFilterGraphqlLogGroup": {
       "Type": "AWS::Logs::SubscriptionFilter",
@@ -594,7 +633,7 @@
     "GraphqlLambdaFunctionQualifiedArn": {
       "Description": "Current Lambda function version",
       "Value": {
-        "Ref": "GraphqlLambdaVersionSWPBeAjzxSHo2Yl0e6luDeqgtLtSz3GSx5TywYoyGY"
+        "Ref": "GraphqlLambdaVersionsbryaM5zXM6DhQy3z3qobMMdO1tfe6xXA7D8jmRuh4"
       }
     },
     "ServiceEndpoint": {

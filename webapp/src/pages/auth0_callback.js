@@ -7,7 +7,7 @@ const AuthCallbackPage = () => {
   const { handleAuthentication } = useAuth()
   useEffect(() => {
     handleAuthentication()
-  }, [])
+  })
 
   return (
     <Layout>
