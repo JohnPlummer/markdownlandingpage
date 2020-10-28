@@ -5,8 +5,15 @@
  */
 
 import React from "react"
-import { ThemeProvider } from "theme-ui"
+import { navigate } from "gatsby"
+import { AuthProvider } from "react-use-auth"
 
 export const wrapRootElement = ({ element }) => (
-  <ThemeProvider>{element}</ThemeProvider>
+  <AuthProvider
+    navigate={navigate}
+    auth0_domain="markdownlandingpagetest99.us.auth0.com"
+    auth0_client_id="XrY2UxkvpV11DqCatE7RzZPEJHbm2CTj"
+  >
+    {element}
+  </AuthProvider>
 )

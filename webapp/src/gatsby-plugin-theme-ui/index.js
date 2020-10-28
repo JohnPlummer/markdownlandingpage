@@ -1,5 +1,5 @@
-import theme from "@rebass/preset"
+import { future } from "@theme-ui/presets"
 
 export default {
-  ...baseTheme,
+  ...future,
 }
