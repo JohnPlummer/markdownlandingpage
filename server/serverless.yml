@@ -1,0 +1,21 @@
+org: johnplummer
+app: markdownlandingpage
+service: markdownlandingpage
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  stage: dev
+
+functions:
+  graphql:
+    handler: dist/graphql.handler
+    events:
+      - http:
+          path: graphql
+          method: GET
+          cors: true
+      - http:
+          path: graphql
+          method: POST
+          cors: true
